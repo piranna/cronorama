@@ -1,0 +1,28 @@
+application: crono
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /images
+  static_dir: images
+  
+- url: /timeline
+  static_dir: timeline
+
+- url: /getEvents\.html
+  script: getEvents.py  
+  
+- url: /login\.html
+  script: login.py    
+  
+- url: /favicon.ico
+  static_files: images/favicon.ico
+  upload: images/favicon.ico  
+  
+- url: /datetimepicker.js
+  static_files: datetimepicker.js
+  upload: datetimepicker.js
+    
+- url: /.*
+  script: cronorama.py
