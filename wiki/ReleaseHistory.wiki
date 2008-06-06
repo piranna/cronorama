@@ -2,7 +2,7 @@
 
 - *v.1.14* (6-Jun-2008)
 
- * Fixed: shorter buubles when zooming in/out
+ * Fixed: shorter bubbles when zooming in/out
  * Fixed: cannot get feed favicon when link doesn't finish with a "/"
  * Fixed: time zones in feeds ignored
  * Added: favicon used in user events and feeds without an icon
