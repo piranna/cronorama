@@ -12,3 +12,8 @@
  * Fixed: automatic scale resize depending on browser width
  * Fixed: week view removed, month view redesigned 
  * Fixed: events without an icon do not show favicon
+
+
+- *v.1.16* (8-Jun-2008)
+
+ * Fixed: day view redesigned (timeline is 12-hour wide now)
