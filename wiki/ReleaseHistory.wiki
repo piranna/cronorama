@@ -6,3 +6,8 @@
  * Fixed: cannot get feed favicon when link doesn't finish with a "/"
  * Fixed: time zones in feeds ignored
  * Added: favicon used in user events and feeds without an icon
+
+- *v.1.15* (8-Jun-2008)
+
+ * Fixed: automatic scale resize depending on browser width
+ * Fixed: week view removed, month view redesigned 
