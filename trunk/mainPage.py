@@ -82,7 +82,7 @@ class MainPage(webapp.RequestHandler):
 						   else if( resolution == Timeline.DateTime.MINUTE )
 						   	return browserWidth / 60;
 						   else if( resolution == Timeline.DateTime.HOUR )
-						   	return browserWidth / 24;
+						   	return browserWidth / 12;
 						   else if( resolution == Timeline.DateTime.DAY )
 						   	return browserWidth / 7;
 						   else if( resolution == Timeline.DateTime.WEEK )
