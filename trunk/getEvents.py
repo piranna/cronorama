@@ -54,6 +54,8 @@ for feedURL in feeds:
 	for item in d.entries:
  		if (faviconURL.status_code != 404 ): #favicon  found
  			faviconAtt = ' icon="' + favicon + '"'
+ 		else:
+ 			faviconAtt = ' icon="images/favicon.ico" ';
 		print "<event title='" + html_escape(item.title.encode('utf-8')) + "' start='" + time.asctime(item.date_parsed) + " +0000 UTC' " + faviconAtt + ">"
 		print html_escape(item.description.encode('utf-8'))
 		print "</event>"
