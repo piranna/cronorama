@@ -51,18 +51,73 @@ class MainPage(webapp.RequestHandler):
                 <div style="position: absolute; bottom: 50px; right: 5%"><a href="javascript:decResol()" style="-moz-outline-style: none;" onclick="this.hideFocus=true;"><img src="images/minus.png" style="border-style: none; "></a><a href="javascript:incResol()"  style="-moz-outline-style: none;" onclick="this.hideFocus=true;"><img src="images/plus.png" style="border-style: none; -moz-outline-style: none;"></a></div>
                 <div id="mainTimeline" style="position:absolute; bottom:100px; top: 150px; width:99%; font-family: Helvetica; font-size: 14; border: 1px solid #aaa"></div>
 
-                
-                
-                                
                 <script>
+                                
+						function getBrowserWidth() {
+							  var myWidth = 0, myHeight = 0;
+							  if( typeof( window.innerWidth ) == 'number' ) {
+							    //Non-IE
+							    myWidth = window.innerWidth;
+							    myHeight = window.innerHeight;
+							  } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+							    //IE 6+ in 'standards compliant mode'
+							    myWidth = document.documentElement.clientWidth;
+							    myHeight = document.documentElement.clientHeight;
+							  } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+							    //IE 4 compatible
+							    myWidth = document.body.clientWidth;
+							    myHeight = document.body.clientHeight;
+							  }
+							  return myWidth;
+						}
+                            
+						function getIntervalUnit( resolution )
+						{
+						   var browserWidth = getBrowserWidth();  
+						   
+						   if( resolution == Timeline.DateTime.MILLISECOND )
+						   	return browserWidth / 1000;
+						   else if( resolution == Timeline.DateTime.SECOND )
+						   	return browserWidth / 60;
+						   else if( resolution == Timeline.DateTime.MINUTE )
+						   	return browserWidth / 60;
+						   else if( resolution == Timeline.DateTime.HOUR )
+						   	return browserWidth / 24;
+						   else if( resolution == Timeline.DateTime.DAY )
+						   	return browserWidth / 7;
+						   else if( resolution == Timeline.DateTime.WEEK )
+						   	return browserWidth / 4;
+						   else if( resolution == Timeline.DateTime.MONTH )
+						   	return browserWidth / 12;
+						   else if( resolution == Timeline.DateTime.YEAR )
+						   	return browserWidth / 10;			
+						   else if( resolution == Timeline.DateTime.DECADE )
+						   	return browserWidth / 10;
+						   else if( resolution == Timeline.DateTime.CENTURY )
+						   	return browserWidth / 10;
+						   else if( resolution == Timeline.DateTime.MILLENNIUM )
+						   	return browserWidth / 10; 			
+						   else
+						   	return browserWidth / 10;
+						 }					   				   							   							   							   							   							   							   	
+
+
+ 
         
                   function incResol()
                   {
 
-                     if( lowerBarResol > 1 )
+                     if( lowerBarResol > Timeline.DateTime.MINUTE )
                      {
-                        lowerBarResol = lowerBarResol - 1;                                                                                                                                                                     
-                        upperBarResol = upperBarResol - 1;
+                     	if( lowerBarResol == 6 ) // MONTH
+                     		lowerBarResol = 4; // DAY
+                     	else
+                        	lowerBarResol = lowerBarResol - 1;                                                                                                                                                                     
+                        
+                        if( upperBarResol == 6 ) // MONTH
+                        	upperBarResol = 4; // DAY
+                        else
+                        	upperBarResol = upperBarResol - 1;
           	
                         onLoad(false);
 
@@ -71,10 +126,17 @@ class MainPage(webapp.RequestHandler):
                   
                   function decResol()
                   {
-                     if( lowerBarResol < 9 )
+                     if( lowerBarResol < Timeline.DateTime.MILLENNIUM )
                      {
-                        lowerBarResol = lowerBarResol + 1;                                                                                                                                                                     
-                        upperBarResol = upperBarResol + 1;
+                     	if( lowerBarResol == 4 ) // DAY
+                     		lowerBarResol = 6; // MONTH
+                     	else
+                        	lowerBarResol = lowerBarResol + 1;                                                                                                                                                                     
+                        
+                        if( upperBarResol == 4 )	// DAY
+                        	upperBarResol = 6; // MONTH
+                        else
+                        	upperBarResol = upperBarResol + 1;
                    
                         onLoad(false);
                      }
@@ -93,6 +155,9 @@ class MainPage(webapp.RequestHandler):
 							theme.event.bubble.height = 350;
 							theme.firstDayOfWeek = 1; 
 							theme.event.instant.icon = "images/favicon.ico";
+							
+							var upperInterval = getIntervalUnit( upperBarResol );
+							var lowerInterval = getIntervalUnit( lowerBarResol );							
 
                     var eventSource = new Timeline.DefaultEventSource();
                     var dt = new Date(); // today
@@ -106,7 +171,7 @@ class MainPage(webapp.RequestHandler):
                           timeZone:	timezone,
                           width:          "90%", 
                           intervalUnit:   upperBarResol, 
-                          intervalPixels: 53,
+                          intervalPixels: upperInterval, 
                           theme:				theme
                       }),
                       Timeline.createBandInfo({
@@ -118,7 +183,7 @@ class MainPage(webapp.RequestHandler):
                           timeZone:	timezone,                          
                           width:          "10%", 
                           intervalUnit:   lowerBarResol, 
-                          intervalPixels: 182,
+                          intervalPixels: lowerInterval,
                           theme:				theme
                       })
                     ];
@@ -133,7 +198,7 @@ class MainPage(webapp.RequestHandler):
                           width:          "90%", 
                           date:           tl.getBand(0).getCenterVisibleDate(),                          
                           intervalUnit:   upperBarResol, 
-                          intervalPixels: 53,
+                          intervalPixels: upperInterval,
                           theme:				theme                          
                       }),
                       Timeline.createBandInfo({
@@ -145,7 +210,7 @@ class MainPage(webapp.RequestHandler):
                           date:           tl.getBand(1).getCenterVisibleDate(),                      
                           width:          "10%", 
                           intervalUnit:   lowerBarResol, 
-                          intervalPixels: 182,
+                          intervalPixels: lowerInterval,
                           theme:				theme                          
                       })
                     ];
