@@ -217,6 +217,23 @@ class MainPage(webapp.RequestHandler):
                     }                    
                     bandInfos[1].syncWith = 0;
                     bandInfos[1].highlight = true;
+                    
+			            bandInfos[0].decorators = [
+			                new Timeline.PointHighlightDecorator({
+			                    date:  d,
+			                    color:      "#AAFF22",
+			                    opacity:    40,
+			                    theme:      theme
+			                })
+			            ];         
+			            bandInfos[1].decorators = [
+			                new Timeline.PointHighlightDecorator({
+			                    date:  d,
+			                    color:      "#AAFF22",
+			                    opacity:    90,
+			                    theme:      theme
+			                })
+			            ];    			                       
                   
                     tl = Timeline.create(document.getElementById("mainTimeline"), bandInfos);
                   
