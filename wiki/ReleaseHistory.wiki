@@ -17,3 +17,7 @@
 - *v.1.16* (8-Jun-2008)
 
  * Fixed: day view redesigned (timeline is 12-hour wide now)
+
+- *v.1.17* (8-Jun-2008)
+
+ * Add: "now bar" to highlight current date and time
