@@ -1,0 +1,1 @@
+Display events, from news or feeds to your agenda or your whole family history, in a chronological way.
